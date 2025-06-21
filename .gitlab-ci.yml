@@ -1,0 +1,25 @@
+stages:
+  - test
+  - deploy
+
+test:
+  stage: test
+  image: python:3.9-slim-buster  # Используем образ Docker с Python 3.9
+  script:
+    - echo "Running tests..."
+    - python3 hello.py  # Запускаем скрипт hello.py
+  tags:
+    - docker
+
+deploy:
+  stage: deploy
+  image: alpine/git  # Используем образ с Git для развертывания (пример)
+  before_script:
+    - apk add --no-cache openssh-client  # Устанавливаем SSH client
+  script:
+    - echo "Deploying..."
+    - echo "Deployment simulated"
+  tags:
+    - docker
+  only:
+    - main # Запускать только для main ветки
